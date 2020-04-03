@@ -17,7 +17,10 @@ def mini(board):
                 bnp[row,col]=1
                 print_board(bnp)
                 
-                return print(test_legality(bnp))
+                if test_legality(bnp):
+                    return mini(bnp)
+                else:
+                    return False
 
     return
 
@@ -46,7 +49,7 @@ def test_legality(board):
             for value in range(4):
                 if np.count_nonzero(quadrant==value+1)>1:
                     return False
-                    
+
     return True
 
 
