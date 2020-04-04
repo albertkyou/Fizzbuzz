@@ -27,7 +27,7 @@ def solver(board):
         if test_legality(board):
             hole+=1
         else:
-            if board[empties[hole][0],empties[hole][1]] > 4:
+            if board[empties[hole][0],empties[hole][1]] > 9:
                 board[empties[hole][0],empties[hole][1]] = 0
                 hole-=1
 
@@ -39,8 +39,8 @@ def solver(board):
 
 def get_empties(board):
     empties = []
-    for row in range(4):
-        for col in range(4):
+    for row in range(9):
+        for col in range(9):
             if board[row,col]==0:
                 empties.append([row,col])
 
@@ -52,26 +52,26 @@ def test_legality(board):
     # test if the current board is legal
     # all rows and columns must contain 1:4
     # each 2x2 quadrant must contain 1:4
-    if np.max(board) > 4:
+    if np.max(board) > 9:
         return False
     # test rows and columns first
-    for row in range(4):
-        for value in range(4):
+    for row in range(9):
+        for value in range(9):
             if np.count_nonzero(board[row,:]==value+1)>1:
                 return False
 
-    for col in range(4):
-        for value in range(4):
+    for col in range(9):
+        for value in range(9):
             if np.count_nonzero(board[:,col]==value+1)>1:
                 return False
 
     # test quadrants
     # define the quadrant
 
-    for qrow in range(2):
-        for qcol in range(2):
-            quadrant = board[2*qrow:2*(qrow+1),2*qcol:2*(qcol+1)]
-            for value in range(4):
+    for qrow in range(3):
+        for qcol in range(3):
+            quadrant = board[3*qrow:3*(qrow+1),3*qcol:3*(qcol+1)]
+            for value in range(9):
                 if np.count_nonzero(quadrant==value+1)>1:
                     return False
 
@@ -83,15 +83,22 @@ def test_legality(board):
 
 
 def print_board(board):
-    for row in range(4):
+    for row in range(9):
         print(board[row]) # 0 indicates empty cell
 
 # Test case for 4x4 puzzle
 def main():
-    board = [[1,0,0,0],
-             [0,0,0,4],
-             [0,0,2,0],
-             [0,3,0,0]]
+    board = [[5,3,0,0,7,0,0,0,0],
+             [6,0,0,1,9,5,0,0,0],
+             [0,9,8,0,0,0,0,6,0],
+             [8,0,0,0,6,0,0,0,3],
+             [4,0,0,8,0,3,0,0,1],
+             [7,0,0,0,2,0,0,0,6],
+             [0,6,0,0,0,0,2,8,0],
+             [0,0,0,4,1,9,0,0,5],
+             [0,0,0,0,8,0,0,7,9],
+
+             ]
     bnp = np.array(board)
     print(solver(bnp))
 
