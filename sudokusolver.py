@@ -2,14 +2,39 @@
 import numpy as np 
 
 
-def mini(board):
+def solver(board):
+    print('Original Board: ')
     print_board(board)
     empties = get_empties(board)
 
+    hole = 0
+    flag=True
+    while flag==True:
 
-    for hole in range(len(empties)):
-        board[empties[hole][0],empties[hole][1]]=1
+        # Get current hole
+        # Fill hole in with smallest value (1)
+        # Test to see if it is legal
+        # if it is legal, move on to the next hole
+        # if it is not legal, increase the value
+        # if the value is now greater than 4, an error has been made already
+        # reset the current hole back to 0 and go back to the previous hole
+        # increase the value of current hole
 
+
+        # find the smallest value that works for the current hole
+        board[empties[hole][0],empties[hole][1]]+=1
+        # print_board(board)
+        if test_legality(board):
+            hole+=1
+        else:
+            if board[empties[hole][0],empties[hole][1]] > 4:
+                board[empties[hole][0],empties[hole][1]] = 0
+                hole-=1
+
+        if hole==len(empties):
+            flag=False
+
+    print('Solution: ')
     print_board(board)
 
 def get_empties(board):
@@ -27,7 +52,8 @@ def test_legality(board):
     # test if the current board is legal
     # all rows and columns must contain 1:4
     # each 2x2 quadrant must contain 1:4
-
+    if np.max(board) > 4:
+        return False
     # test rows and columns first
     for row in range(4):
         for value in range(4):
@@ -57,16 +83,17 @@ def test_legality(board):
 
 
 def print_board(board):
-    print('board: ')
     for row in range(4):
-        
         print(board[row]) # 0 indicates empty cell
 
 # Test case for 4x4 puzzle
 def main():
-    board = [[1,0,0,0],[0,0,0,4],[0,0,2,0],[0,3,0,0]]
+    board = [[1,0,0,0],
+             [0,0,0,4],
+             [0,0,2,0],
+             [0,3,0,0]]
     bnp = np.array(board)
-    print(mini(bnp))
+    print(solver(bnp))
 
 
 if __name__ == "__main__":
