@@ -2,6 +2,24 @@
 import numpy as np 
 
 
+def mini(board):
+    print_board(board)
+    empties = get_empties(board)
+
+
+    for hole in range(len(empties)):
+        board[empties[hole][0],empties[hole][1]]=1
+
+    print_board(board)
+
+def get_empties(board):
+    empties = []
+    for row in range(4):
+        for col in range(4):
+            if board[row,col]==0:
+                empties.append([row,col])
+
+    return empties
 
 
 
@@ -46,9 +64,9 @@ def print_board(board):
 
 # Test case for 4x4 puzzle
 def main():
-    board = [[4,3,0,0],[1,2,3,0],[0,0,2,0],[2,1,0,0]]
+    board = [[1,0,0,0],[0,0,0,4],[0,0,2,0],[0,3,0,0]]
     bnp = np.array(board)
-    mini(bnp)
+    print(mini(bnp))
 
 
 if __name__ == "__main__":
