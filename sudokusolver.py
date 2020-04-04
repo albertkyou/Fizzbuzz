@@ -2,32 +2,7 @@
 import numpy as np 
 
 
-def mini(board):
-    # main loop to fill in the board
-    for i in range(10):
-        board = fill_hole(board)
-    
-    print_board(board)
 
-def fill_hole(board):
-    # solves 4x4 sudoku boards
-    # brute force recursion
-    # start at top left cell and insert lowest possible value that does not interfere with the rest of the board
-    # once a successful value is found, move onto the next cell
-    # if no cells are possible, remove previous cell and go to the next lowest possible value
-
-    # find first 0 and replace with x
-    for row in range(4):
-        for col in range(4):
-            if board[row,col]==0:
-                print_board(board)
-                board[row,col]=1 # set it as 1
-                if test_legality(board):
-                    return board # if 1 works, then move on to the next cell
-
-                else:
-                    board[row,col]+=1
-                    return board
 
 
 def test_legality(board):
