@@ -2,10 +2,10 @@
 float initx;
 float inity;
 float dirx,diry;
-int speed = 25;
+int speed = 55;
 
 void setup() {
- background(255,255,255);
+ background(10,10,10);
  size(500,500);
  initx = random(width);
  inity = random(height);
@@ -39,13 +39,17 @@ void draw(){
     strokeWeight(3);
     rect(0,0,width,height);
     
-    fill(0,0,0);
-    rect(initx,inity,2*random(1),2*random(1));
+    // Draw dot here
+    noStroke();
+    fill(0,70+random(255-70),150);
+    rect(initx,inity,16*random(1),16*random(1));
     
     
     // reset on mouse press
     if(mousePressed){
-      fill(255,255,255);
+      fill(10,10,10);
+      rect(0,0,width,height);
+
       rect(0,0,width,height);
       initx = mouseX;
       inity = mouseY;
